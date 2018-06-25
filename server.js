@@ -45,11 +45,19 @@ app.use('/admin', express.static(__dirname + "/static/admin"));
 app.use('/.well-known', express.static(__dirname + "/.well-known"));
 
 app.use(expressGa('UA-83327907-4'));
+
+app.get('/ide', (req, res) => {
+    res.redirect(`http://ide.codingblocks.com`);
+})
+
+app.get('/ide/:id', (req, res) => {
+    res.redirect(`http://ide.codingblocks.com/#/s/${req.params.id}`);
+});
+
 app.use('/api/v1', cors(), route.api_v1);
 app.use('/', route.shortcode);
 app.use('/auth', route.auth);
 app.use(redirectToHome);
-
 
 app.listen( process.env.PORT || 4000, () => {
     console.log("Listening on http://localhost:" + (process.env.PORT || "4000") + "/");
